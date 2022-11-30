@@ -34,11 +34,11 @@ router.get('/home', (req, res) => {
                                         else {
                                             bookModel.mostBorrowedBook((mostBorrowedBook) => {
                                                 if (!mostBorrowedBook) {
-                                                    res.send("no borrowed books");
+                                                    mostBorrowedBook = 0;
                                                 }
-                                                else {
+                                                // else {
                                                     res.render('admin/home', { usr: users.length, bk: books.length, brwd: borrowed.length, mb: mostBorrowed.length, mrb: mostRequested, mbb: mostBorrowedBook });
-                                                }
+                                                // }
                                             });
                                         }
                                     });

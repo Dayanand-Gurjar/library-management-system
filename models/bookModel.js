@@ -75,7 +75,7 @@ var getIssuedBooks = (id, callback) => {
 };
 
 var getUnborrowedBooks = (callback) => {
-    var sql = "SELECT * FROM books WHERE (user_id  null) OR (user_id = 0)";
+    var sql = "SELECT * FROM books WHERE (user_id is null) OR (user_id = 0)";
     db.executeQuery(sql, null, function (result) {
         callback(result);
     });
