@@ -29,6 +29,7 @@ router.post('/', (req, res)=>{
                   if(result.is_admin == 1){
                       req.session.admin = result.user_id;
                       res.redirect('/admin/home');
+                    //   console.log("Hello");
                   }
                   else{
                       req.session.customer = result.user_id;

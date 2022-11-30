@@ -14,6 +14,8 @@ router.get('/home', (req, res)=> {
             res.render('customer/home', {tbbbc: booksBorrowed.length});
         }
     });
+    
+    
 });
 
 router.get('/profile', (req, res)=> {
