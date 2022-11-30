@@ -14,13 +14,13 @@ CREATE TABLE users (
 );
 
 INSERT INTO users (user_id, name, phone, email, is_admin, password, address, gender) VALUES
-(1, 'Abrar', 1711568524, 'a.zshahriar@gmail.com', 1, '1234', 'Mirpur DOHS', 'Male'),
-(2, 'Arefin', 1764431859, 'arefin@gmail.com', 0, 'yellow', 'Mirpur 13', 'Male'),
-(4, 'Rafin', 1924184941, 'rafin.ryan.07@outlook.com', 0, 'horse', 'Mirpur 13, Dhaka', 'Male'),
-(5, 'Shimi', 1723645289, 'shimi@gmail.com', 0, 'abcd', 'Uttara, Sector 13', 'Female'),
-(6, 'Jhuma', 1782963175, 'fjhuma@gmail.com', 0, 'qwerty', 'Banani, Chairman Bari', 'Female'),
-(7, 'Istiak', 1932478293, 'istiakisha69@gmail.com', 0, 'istiak', 'Baily Road', 'Male'),
-(8, 'Fahim Ahmed', 1726972364, 'fahim152@gmail.com', 0, 'fahimma', 'Kallayanpur', 'Male');
+(1, 'Sudama', 1711568524, 'sudama@gmail.com', 1, '1234', 'GUNA MP', 'Male'),
+(2, 'Dayanand', 1764431859, 'dayanand@gmail.com', 0, '1234', 'Mirpur 13', 'Male'),
+(4, 'aarav', 1924184941, 'aarav@gmail.com', 0, '1234', 'Mirpur 13, Dhaka', 'Male'),
+(5, 'pooja', 1723645289, 'pooja@gmail.com', 0, '1234', 'Uttara, Sector 13', 'Female'),
+(6, 'praveen', 1782963175, 'praveen@gmail.com', 0, '1234', 'Banani, Chairman Bari', 'Female'),
+(7, 'amrit', 1932478293, 'amrit@gmail.com', 0, '1234', 'Baily Road', 'Male'),
+(8, 'veependra', 1726972364, 'veependra@gmail.com', 0, '1234', 'Kallayanpur', 'Male');
 
 
 CREATE TABLE publisher (
@@ -48,7 +48,7 @@ CREATE TABLE books (
   isbn VARCHAR(60) NOT NULL,
   pages INT NOT NULL,
   date_issued DATE DEFAULT NULL,
-  FOREIGN KEY (user_id) REFERENCES users (user_id)
+  FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO books (book_id, user_id, genre, title, author, publisher, edition, isbn, pages, date_issued) VALUES
@@ -56,7 +56,10 @@ INSERT INTO books (book_id, user_id, genre, title, author, publisher, edition, i
 (3, null, 'Adventure', 'A Song of Ice & Fire', 'George R. R. Martin', 'Game of Thrones', 8, 'has23dadh123427', 1200, null),
 (4, null, 'Adventure', 'Harry Potter & The Half Blood Prince', 'J.K Rowling', 'Rowling''s Publications', 1, '31ghf1jk24kjb3l4l1gjh', 667, null),
 (5, null, 'Adventure', 'Harry Potter & The Deadly Hallows', 'J.K Rowling', 'Rowling''s Publications', 2, 'agsh32gqkj12bkl134', 798, null),
-(7, null, 'Mystery', 'The Mysterious Affair at Styles', 'Agatha Christie', 'Agatha Publications', 2, '4zgdhdv2dfh81v31sdgj', 669, null),
+(7, null, 'Mystery', 'The Mysterious Affair at Styles', 'Agatha Christie', 'Agatha Publications', 2, 'hkjkadsjfjljafljdlf', 234, null),
+(6, null, 'Academics', 'Database system concept', 'S. sudarshan', 'Agatha Publications', 2, 'klklfieouoe4', 669, null),
+(8, null, 'Academics', 'Compiler concept', 'Navatha', 'Agatha Publications', 2, 'nvud734973nmnf', 423, null),
+(9, null, 'Academics', 'Modern database management', 'Prescott M B', 'Mcgraw Hill', 6, 'kjfla8979ewadsfa', 635, null),
 (10, null, 'Modern Literature', 'In Search of Lost Time', 'Marcel Proust', 'NY Publishers', 8, '2j3nsd235habh3dfkj', 4215, null);
 
  
@@ -69,7 +72,7 @@ CREATE TABLE books_request (
   edition INT(10) NOT NULL,
   isbn VARCHAR(60) NOT NULL,
   date DATE NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users (user_id)
+  FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO books_request (request_id, user_id, genre, title, author, edition, isbn, date) VALUES
@@ -84,8 +87,8 @@ CREATE TABLE issue_date (
   book_id INT(10) NOT NULL,
   user_id INT(10) NOT NULL,
   date DATE NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users (user_id),
-  FOREIGN KEY (book_id) REFERENCES books (book_id)
+  FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (book_id) REFERENCES books (book_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO issue_date (issue_id, book_id, user_id, date) VALUES
