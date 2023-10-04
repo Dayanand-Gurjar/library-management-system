@@ -48,7 +48,7 @@ CREATE TABLE books (
   isbn VARCHAR(60) NOT NULL,
   pages INT NOT NULL,
   date_issued DATE DEFAULT NULL,
-  FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 INSERT INTO books (book_id, user_id, genre, title, author, publisher, edition, isbn, pages, date_issued) VALUES
@@ -99,3 +99,21 @@ ALTER TABLE books AUTO_INCREMENT = 21;
 ALTER TABLE books_request AUTO_INCREMENT = 19;
 ALTER TABLE users AUTO_INCREMENT = 45;
 ALTER TABLE issue_date AUTO_INCREMENT = 17;
+
+
+
+-- CREATE TRIGGER Before_user_delete BEFORE DELETE ON users FOR EACH ROW 
+-- IF EXISTS (SELECT * FROM books WHERE user_id = user_id) THEN 
+
+-- SIGNAL SQLSTATE '50001' SET MESSAGE_TEXT = 'FIRST COLLECT YOR BOOKS FROM THIS USER';
+
+DROP TRIGGER IF EXISTS `lms`.`users_BEFORE_DELETE`;
+
+DELIMITER $$
+USE `lms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `lms`.`users_BEFORE_DELETE` BEFORE DELETE ON `users` FOR EACH ROW
+BEGIN
+	if (select b.user_id from books b where b.user_id=old.user_id) is not null then update books set user_id=null where user_id=old.user_id;
+    end if;
+END$$
+DELIMITER ;
